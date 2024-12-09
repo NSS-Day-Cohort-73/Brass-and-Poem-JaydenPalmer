@@ -80,6 +80,10 @@ void DisplayMenu()
         {
             Console.WriteLine("GOODBYE");
         }
+        else
+        {
+            Console.WriteLine("Incorrect input! Please enter a number!");
+        }
     }
 }
 
@@ -156,7 +160,7 @@ void UpdateProduct(List<Product> products, List<ProductType> productTypes)
         Console.WriteLine("\nWhat would you like to update?");
         Console.WriteLine("1. Update name");
         Console.WriteLine("2. Update price");
-        Console.WriteLine("4. Update product type");
+        Console.WriteLine("3. Update product type");
 
         string updateThis = Console.ReadLine();
 
