@@ -53,10 +53,10 @@ void DisplayMenu()
     {
         Console.WriteLine(
             @"Choose an option
-                            1. Display all Products
+                            1. Display all products
                             2. Delete a product
-                            3. Add a product
-                            4. Update a product
+                            3. Add a new product
+                            4. Update product properties
                             5. Exit"
         );
         choice = Console.ReadLine();
@@ -94,7 +94,9 @@ void DisplayAllProducts(List<Product> products, List<ProductType> productTypes)
     foreach (Product product in products)
     {
         var thisProductType = productTypes.FirstOrDefault(item => item.Id == product.ProductTypeId);
-        Console.WriteLine($"{counter++}. {product.Name} --- {thisProductType.Title}");
+        Console.WriteLine(
+            $"{counter++}. {product.Name} --- {thisProductType.Title} --- {product.Price}"
+        );
     }
 }
 
