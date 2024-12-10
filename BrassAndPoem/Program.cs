@@ -4,31 +4,31 @@ List<Product> products = new List<Product>()
     new Product
     {
         Name = "Trumpet",
-        Price = 899.99m,
+        Price = 150.99M,
         ProductTypeId = 1,
     },
     new Product
     {
         Name = "Trombone",
-        Price = 749.99m,
+        Price = 246.99M,
         ProductTypeId = 1,
     },
     new Product
     {
-        Name = "French Horn",
-        Price = 1299.99m,
+        Name = "Tuba",
+        Price = 1250.99M,
         ProductTypeId = 1,
     },
     new Product
     {
-        Name = "Sonnets of Love",
-        Price = 19.99m,
+        Name = "Ozymandias",
+        Price = 12350.99M,
         ProductTypeId = 2,
     },
     new Product
     {
-        Name = "Modern Verses",
-        Price = 24.99m,
+        Name = "Leaves of Grass",
+        Price = 15650.99M,
         ProductTypeId = 2,
     },
 };
@@ -44,21 +44,25 @@ List<ProductType> productTypes = new List<ProductType>()
 Console.WriteLine("Welcome to Brass and Poem!");
 
 //implement your loop here
-DisplayMenu();
+RunMenu();
 
-void DisplayMenu()
+void DisplayMenu() // No parameters needed
+{
+    Console.WriteLine(
+        @"1. Display all products
+2. Delete a product
+3. Add a new product
+4. Update product properties
+5. Exit"
+    );
+}
+
+void RunMenu()
 {
     string choice = null;
     while (choice != "5")
     {
-        Console.WriteLine(
-            @"Choose an option
-                            1. Display all products
-                            2. Delete a product
-                            3. Add a new product
-                            4. Update product properties
-                            5. Exit"
-        );
+        DisplayMenu();
         choice = Console.ReadLine();
         if (choice == "1")
         {
@@ -126,7 +130,7 @@ void AddProduct(List<Product> products, List<ProductType> productTypes)
     string name = Console.ReadLine();
 
     Console.WriteLine("Enter your product's asking price:");
-    decimal askingPrice = int.Parse(Console.ReadLine());
+    decimal askingPrice = decimal.Parse(Console.ReadLine());
 
     Console.WriteLine("Is your product:");
     int counter = 1;
@@ -159,41 +163,32 @@ void UpdateProduct(List<Product> products, List<ProductType> productTypes)
     {
         Product product = products[productChoice];
 
-        Console.WriteLine("\nWhat would you like to update?");
-        Console.WriteLine("1. Update name");
-        Console.WriteLine("2. Update price");
-        Console.WriteLine("3. Update product type");
-
-        string updateThis = Console.ReadLine();
-
-        if (updateThis == "1")
+        Console.WriteLine("Enter new name:");
+        string newName = Console.ReadLine();
+        if (!string.IsNullOrWhiteSpace(newName))
         {
-            Console.WriteLine("Enter new name:");
-            product.Name = Console.ReadLine();
+            product.Name = newName;
         }
-        else if (updateThis == "2")
+
+        Console.WriteLine("Enter new price:");
+        string newPrice = Console.ReadLine();
+        if (!string.IsNullOrWhiteSpace(newPrice))
         {
-            Console.WriteLine("Enter new price:");
-            product.Price = decimal.Parse(Console.ReadLine());
+            product.Price = decimal.Parse(newPrice);
         }
-        else if (updateThis == "3")
+
+        Console.WriteLine("Enter new product type number:");
+        foreach (ProductType type in productTypes)
         {
-            foreach (ProductType type in productTypes)
+            Console.WriteLine($"{type.Id}. {type.Title}");
+        }
+        string newType = Console.ReadLine();
+        if (!string.IsNullOrWhiteSpace(newType))
+        {
+            int typeId = int.Parse(newType);
+            if (productTypes.Any(type => type.Id == typeId))
             {
-                Console.WriteLine($"{type.Id}. {type.Title}");
-            }
-
-            Console.WriteLine("Enter new product type number:");
-
-            int newType = int.Parse(Console.ReadLine());
-
-            if (productTypes.Any(type => type.Id == newType))
-            {
-                product.ProductTypeId = newType;
-            }
-            else
-            {
-                Console.WriteLine("That's not a valid type!");
+                product.ProductTypeId = typeId;
             }
         }
     }
